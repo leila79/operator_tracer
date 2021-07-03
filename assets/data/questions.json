@@ -1,0 +1,59 @@
+{
+  "pages": [
+    {
+      "name": "page1",
+      "elements": [
+        {
+          "type": "checkbox",
+          "name": "question1",
+          "choices": [
+            "item1",
+            "item2",
+            "item3"
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "question2",
+          "choices": [
+            "item1",
+            "item2",
+            "item3"
+          ]
+        },
+        {
+          "type": "file",
+          "name": "question3",
+          "maxSize": 1000
+        }
+      ]
+    },
+    {
+      "name": "page2",
+      "elements": [
+        {
+          "type": "text",
+          "name": "question4"
+        },
+        {
+          "type": "radiogroup",
+          "name": "question5",
+          "choices": [
+            "item1",
+            "item2",
+            "item3"
+          ]
+        },
+        {
+          "type": "checkbox",
+          "name": "question6",
+          "choices": [
+            "item1",
+            "item5",
+            "item3"
+          ]
+        }
+      ]
+    }
+  ]
+}
