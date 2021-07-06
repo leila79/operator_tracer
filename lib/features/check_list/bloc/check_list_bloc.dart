@@ -19,7 +19,6 @@ class CheckListBloc extends Bloc<CheckListEvent, MasterState> {
   Stream<MasterState> mapEventToState(
     CheckListEvent event,
   ) async* {
-    // TODO: implement mapEventToState
     if (event is GetItemData) {
       yield ShowLoading();
       try {

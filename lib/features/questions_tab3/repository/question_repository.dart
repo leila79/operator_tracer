@@ -64,10 +64,21 @@ class QuestionRepository {
     print("in delete");
     try {
       final path = await _localPath;
-      while (pageNum != 0) {
-        final file = File("$path/tempAnswers$pageNum.json");
-        await file.writeAsString("");
-        pageNum--;
+      // while (pageNum != 0) {
+      //   final file = File("$path/tempAnswers$pageNum.json");
+      //   await file.writeAsString("");
+      //   pageNum--;
+      // }
+      pageNum = 1;
+      while (true) {
+        final fileExist = await File("$path/tempAnswers$pageNum.json").exists();
+        if (fileExist) {
+          final file = File("$path/tempAnswers$pageNum.json");
+          await file.writeAsString("");
+          pageNum++;
+        } else {
+          break;
+        }
       }
     } catch (e) {
       return 0;

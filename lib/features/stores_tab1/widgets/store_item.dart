@@ -11,8 +11,9 @@ class StoreItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    IconData radioIcon =
-        groupValue == store.id ? Icons.add : Icons.radio_button_off;
+    IconData radioIcon = groupValue == store.id
+        ? Icons.radio_button_checked
+        : Icons.radio_button_off;
     return InkWell(
       onTap: () => onTap(),
       child: Container(
