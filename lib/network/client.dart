@@ -12,7 +12,7 @@ class Client {
         onError: (DioError error, handler) => errorInterceptor(error),
       ),
     );
-    _dio.options.baseUrl = 'https://google.com';
+    _dio.options.baseUrl = 'movi.amwajco.net/index.php/api';
     return _dio;
   }
 
