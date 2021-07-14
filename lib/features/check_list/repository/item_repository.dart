@@ -11,7 +11,7 @@ class ItemRepository {
   late Dio client;
 
   ItemRepository() {
-    client = Client().init();
+    // client = Client().init();
   }
 
   Future<List<CheckItem>> getItemData() async {
