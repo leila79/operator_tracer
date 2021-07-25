@@ -59,8 +59,8 @@ class QuestionBloc extends Bloc<QuestionEvent, MasterState> {
       }
     } else if (event is AddPageData) {
       try {
-        print(event.answer);
-        print(event.pageNum);
+        print('answer : ${event.answer}');
+        print('page num: ${event.pageNum}');
         await questionRepository.addTempData(event.answer, event.pageNum);
       } catch (e) {
         if (e is ConnectionException) {

@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:human_resources/base/bloc/master_state.dart';
+import 'package:human_resources/base/daynamicApp.dart';
 import 'package:human_resources/features/check_list/bloc/check_list_bloc.dart';
 import 'package:human_resources/features/check_list/widgets/item_builder.dart';
+import 'package:human_resources/features/user_profile/Bloc/bloc/user_bloc.dart';
 import 'package:human_resources/models/check_item.dart';
-import '../../../base/navigation_bar.dart';
+import 'package:human_resources/models/user.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/search_bar.dart';
 
 class CheckListPage extends StatefulWidget {
@@ -16,6 +19,7 @@ class CheckListPage extends StatefulWidget {
 }
 
 class _CheckListPageState extends State<CheckListPage> {
+  late User user;
   String _searchText = "";
   SearchBar searchBar = SearchBar();
   TextEditingController _filter = TextEditingController();
@@ -57,6 +61,7 @@ class _CheckListPageState extends State<CheckListPage> {
   void initState() {
     _bloc.add(GetItemData());
     super.initState();
+    // getUserInfo();
     _filter.addListener(() {
       if (_filter.text.isEmpty) {
         setState(() {
@@ -117,9 +122,11 @@ class _CheckListPageState extends State<CheckListPage> {
 
   @override
   Widget build(BuildContext context) {
-    // _bloc.add(GetItemData());
-    return Scaffold(
-      drawer: NavBar(),
+    // User user = ModalRoute.of(context)!.settings.arguments as User;
+    _bloc.add(GetItemData());
+
+    return DynamicApp(
+      // user: user,
       appBar: AppBar(
         title: Text(
           'Check List',
@@ -132,7 +139,7 @@ class _CheckListPageState extends State<CheckListPage> {
         leading: Builder(
           builder: (context) => IconButton(
             color: Colors.white,
-            icon: Icon(Icons.check_circle),
+            icon: Icon(Icons.menu),
             onPressed: () => Scaffold.of(context).openDrawer(),
           ),
         ),

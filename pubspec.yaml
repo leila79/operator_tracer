@@ -31,7 +31,9 @@ dependencies:
   hive_flutter: ^1.0.0
   dio: ^4.0.0
   flutter_svg: ^0.22.0
-  device_info_plus: ^2.1.0
+  shared_preferences: ^2.0.6
+  loading_overlay: ^0.3.0
+  device_info_plus: 
   multi_image_picker2:
 
 dev_dependencies:

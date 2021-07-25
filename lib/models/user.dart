@@ -6,8 +6,8 @@ part 'user.g.dart';
 class User {
   User(this.status, this.id, this.email, this.name, this.img);
 
-  int status;
-  int id;
+  String status;
+  String id;
   String name;
   String email;
   String img;

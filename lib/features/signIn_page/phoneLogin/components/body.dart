@@ -28,10 +28,10 @@ class Body extends StatelessWidget {
             SizedBox(
               height: size.height * 0.03,
             ),
-            RoundedInputField(
-              text: 'Phone Number',
-              onChange: (value) {},
-            ),
+            // RoundedInputField(
+            //   text: 'Phone Number',
+            //   onChange: (value) {},
+            // ),
             // RoundedPasswordField(
             //   onChange: (value) {},
             // ),

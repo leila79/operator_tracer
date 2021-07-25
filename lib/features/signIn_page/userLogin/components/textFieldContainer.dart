@@ -3,8 +3,9 @@ import 'package:human_resources/features/signIn_page/constants.dart';
 
 class TextFieldContainer extends StatelessWidget {
   late final Widget child;
+  late final bool haveText;
 
-  TextFieldContainer({required this.child});
+  TextFieldContainer({required this.child, required this.haveText});
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +15,9 @@ class TextFieldContainer extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 10),
       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
       decoration: BoxDecoration(
-        color: kPrimaryLightColor,
-        borderRadius: BorderRadius.circular(29),
-      ),
+          color: kPrimaryLightColor,
+          borderRadius: BorderRadius.circular(29),
+          border: haveText ? null : Border.all(color: Colors.red)),
       child: child,
     );
   }

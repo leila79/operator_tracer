@@ -16,18 +16,18 @@ class QuestionRepository {
     final path = await _localPath;
     final fileExist = await File("$path/tempAnswers$pageNum.json").exists();
     if (fileExist) {
-      print('file$pageNum did exist');
+      // print('file$pageNum did exist');
       final file = File("$path/tempAnswers$pageNum.json");
       String a = await file.readAsString();
-      print(a);
+      // print('a : $a');
       if (a != "") {
-        print("file had data");
+        // print("file had data");
         answers = jsonDecode(a);
       }
-      print("answers : $answers");
+      // print("answers : $answers");
     }
     var res = await LocalApiHelper().parseJson("questions");
-    print(res);
+    // print(res);
     List temp = res['pages'] as List;
     List<QuestionItem> tempQuestions =
         temp.map((e) => QuestionItem.fromJson(e)).toList();
@@ -50,14 +50,14 @@ class QuestionRepository {
     final path = await _localPath;
     final file = File("$path/answers.json");
     file.writeAsStringSync(json.encode(answer));
-    print(file.readAsStringSync());
+    // print(file.readAsStringSync());
   }
 
   Future<void> addTempData(Map<String, dynamic> answers, int pageNum) async {
     final path = await _localPath;
     final file = File("$path/tempAnswers$pageNum.json");
     await file.writeAsString(json.encode(answers));
-    print("temp file saved : ${file.readAsStringSync()}");
+    // print("temp file saved : ${file.readAsStringSync()}");
   }
 
   Future<int> deleteFiles(int pageNum) async {
@@ -73,6 +73,7 @@ class QuestionRepository {
       while (true) {
         final fileExist = await File("$path/tempAnswers$pageNum.json").exists();
         if (fileExist) {
+          print('file$pageNum did exist');
           final file = File("$path/tempAnswers$pageNum.json");
           await file.writeAsString("");
           pageNum++;

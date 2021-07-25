@@ -7,10 +7,10 @@ import 'package:human_resources/features/questions_tab3/widget/question_builder.
 import 'package:human_resources/models/question_item.dart';
 
 class ThirdTab extends StatefulWidget {
-  QuestionBloc bloc = QuestionBloc();
-  List<QuestionBuilder> _all = [];
+  final QuestionBloc bloc = QuestionBloc();
+  final List<QuestionBuilder> _all = [];
   List<QuestionBuilder> _items = [];
-  Map<String, dynamic> answer = {};
+  final Map<String, dynamic> answer = {};
   int pageNum = 1;
   @override
   _ThirdTabState createState() => _ThirdTabState();

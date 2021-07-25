@@ -8,7 +8,7 @@ part of 'user_auth.dart';
 
 UserAuth _$UserAuthFromJson(Map<String, dynamic> json) {
   return UserAuth(
-    json['userid'] as int,
+    json['userid'] as String,
     json['t'] as int,
     json['name'] as String,
     json['pic'] as String,

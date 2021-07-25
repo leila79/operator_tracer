@@ -28,28 +28,34 @@ class QuestionBuilder extends StatelessWidget {
     switch (element['type']) {
       case ('checkbox'):
         {
+          print('checkbox');
           listAnswer.addAll(_checkMarkQ.getValues());
           print(listAnswer);
           break;
         }
       case ('radiogroup'):
         {
+          print('radiogroup');
           answer = _radioGroupQ.selected != null ? _radioGroupQ.selected! : "";
           break;
         }
       case ("text"):
         {
+          print('text');
           answer = _textQ.answer;
           break;
         }
       case ("file"):
         {
+          print('file');
           listAnswer.add(_fileQ.type);
           listAnswer.add(_fileQ.content);
           break;
         }
       default:
         {
+          print(listAnswer);
+          print(answer);
           break;
         }
     }

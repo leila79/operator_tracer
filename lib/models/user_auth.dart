@@ -6,7 +6,7 @@ part 'user_auth.g.dart';
 class UserAuth {
   UserAuth(this.userid, this.t, this.name, this.pic);
 
-  int userid;
+  String userid;
   int t;
   String name;
   String pic;

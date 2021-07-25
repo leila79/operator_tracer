@@ -26,7 +26,7 @@ class Body extends StatelessWidget {
             height: size.height * 0.05,
           ),
           RoundedButton(
-            onPress: () => Navigator.pushNamed(context, "/userLoginPage"),
+            onPress: () => Navigator.popAndPushNamed(context, "/userLoginPage"),
             text: 'Login With Username & Password',
           ),
           SizedBox(

@@ -28,6 +28,7 @@ class _FormPageState extends State<FormPage> {
   _back() {
     setState(() {
       tabNum--;
+      print(tabNum);
       if (tabNum <= 0) {
         thirdTab.deleteCache();
         Navigator.pop(context);
@@ -53,6 +54,7 @@ class _FormPageState extends State<FormPage> {
         pageNum = 0;
       }
       tabNum++;
+      print(tabNum);
       if (tabNum > 4) {
         thirdTab.deleteCache();
         Navigator.pop(context);
@@ -60,6 +62,30 @@ class _FormPageState extends State<FormPage> {
       }
       tab = choose(tabNum);
     });
+  }
+
+  _exit() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Are you sure?'),
+        content: Text('Do you want to exit an App'),
+        actions: <Widget>[
+          FlatButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text('No'),
+          ),
+          FlatButton(
+            onPressed: () {
+              Navigator.of(context).pop(false);
+              Navigator.of(context).pop(true);
+            },
+            /*Navigator.of(context).pop(true)*/
+            child: Text('Yes'),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget choose(int tab) {
@@ -71,7 +97,9 @@ class _FormPageState extends State<FormPage> {
       return secondTab;
     }
     if (tab == 3) {
+      print('Page num : $pageNum');
       if (pageNum == 0) {
+        print('in if');
         secondTab.save();
       }
       pageNum++;
@@ -108,173 +136,193 @@ class _FormPageState extends State<FormPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.blue,
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Colors.blue, Colors.white],
-              stops: [0.4, 0.4],
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        body: SafeArea(
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Colors.blue, Colors.white],
+                stops: [0.4, 0.4],
+              ),
             ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(40, 50, 40, 5),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 10.0,
-                          width: 70.0,
-                          decoration: BoxDecoration(
-                            color: _color(1),
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'Stores',
-                          style: TextStyle(color: Colors.white),
-                        )
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 10.0,
-                          width: 70.0,
-                          decoration: BoxDecoration(
-                            color: _color(2),
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'Check Lists',
-                          style: TextStyle(color: Colors.white),
-                        )
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 10.0,
-                          width: 70.0,
-                          decoration: BoxDecoration(
-                            color: _color(3),
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'Questions',
-                          style: TextStyle(color: Colors.white),
-                        )
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 10.0,
-                          width: 70.0,
-                          decoration: BoxDecoration(
-                            color: _color(4),
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'Done',
-                          style: TextStyle(color: Colors.white),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 35.0,
-                ),
-                Expanded(
-                  child: AnimatedContainer(
-                    duration: Duration(seconds: 1),
-                    curve: Curves.fastOutSlowIn,
-                    decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.3),
-                            spreadRadius: 2,
-                            blurRadius: 7,
-                            offset: Offset(0, 3), // changes position of shadow
-                          ),
-                        ],
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20.0),
-                          topRight: Radius.circular(20.0),
-                        )),
-                    child: Column(
-                      // mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Expanded(child: tab),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            ElevatedButton(
-                              onPressed: _back,
-                              style: ElevatedButton.styleFrom(
-                                  primary: Colors.black,
-                                  minimumSize: Size(130, 50),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  )),
-                              child: Text(
-                                'back',
-                                style: TextStyle(color: Colors.white),
-                              ),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(40, 50, 40, 5),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 10.0,
+                            width: 70.0,
+                            decoration: BoxDecoration(
+                              color: _color(1),
+                              borderRadius: BorderRadius.circular(20.0),
                             ),
-                            ElevatedButton(
-                              onPressed: _next,
-                              style: ElevatedButton.styleFrom(
-                                  primary: Colors.grey[700],
-                                  minimumSize: Size(130, 50),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  )),
-                              child: Text(
-                                'next',
-                                style: TextStyle(color: Colors.white),
-                              ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Stores',
+                            style: TextStyle(color: Colors.white),
+                          )
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 10.0,
+                            width: 70.0,
+                            decoration: BoxDecoration(
+                              color: _color(2),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Check Lists',
+                            style: TextStyle(color: Colors.white),
+                          )
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 10.0,
+                            width: 70.0,
+                            decoration: BoxDecoration(
+                              color: _color(3),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Questions',
+                            style: TextStyle(color: Colors.white),
+                          )
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 10.0,
+                            width: 70.0,
+                            decoration: BoxDecoration(
+                              color: _color(4),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Done',
+                            style: TextStyle(color: Colors.white),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 35.0,
+                  ),
+                  Expanded(
+                    child: AnimatedContainer(
+                      duration: Duration(seconds: 1),
+                      curve: Curves.fastOutSlowIn,
+                      decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 2,
+                              blurRadius: 7,
+                              offset:
+                                  Offset(0, 3), // changes position of shadow
                             ),
                           ],
-                        ),
-                        SizedBox(
-                          height: 80.0,
-                        )
-                      ],
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20.0),
+                            topRight: Radius.circular(20.0),
+                          )),
+                      child: Column(
+                        // mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Expanded(child: tab),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              ElevatedButton(
+                                onPressed: _back,
+                                style: ElevatedButton.styleFrom(
+                                    primary: Colors.black,
+                                    minimumSize: Size(130, 50),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    )),
+                                child: Text(
+                                  'back',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              ElevatedButton(
+                                onPressed: _next,
+                                style: ElevatedButton.styleFrom(
+                                    primary: Colors.grey[700],
+                                    minimumSize: Size(130, 50),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    )),
+                                child: Text(
+                                  'next',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          ElevatedButton(
+                            onPressed: () => _exit(),
+                            style: ElevatedButton.styleFrom(
+                                primary: Colors.black,
+                                minimumSize: Size(130, 50),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                )),
+                            child: Text(
+                              'Exit',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 80.0,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

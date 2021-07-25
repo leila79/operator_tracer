@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'client.dart';
+import 'dart:io';
 
 class UserApi {
   late Dio dio;
@@ -21,9 +22,40 @@ class UserApi {
   }
 
   Future<Response> fetchUserInfo(int token, String devid) async {
-    return await client.post('/getUserInfo', {
+    try {
+      return await client.post('/getUserInfo', {
+        'authkey': token,
+        'devid': devid,
+      });
+    } on DioError catch (e) {
+      if (e.type == DioErrorType.connectTimeout) {
+        throw Exception("Connection  Timeout Exception");
+      }
+      throw Exception(e.message);
+    }
+  }
+
+  Future<Response> forgetPasswordEmail(String email, String devid) async {
+    return await client.post('/forgetPasswordEmail', {
+      'username': email,
+      'devid': devid,
+    });
+  }
+
+  Future<Response> changePasswordEmail(
+      String password, String devid, int token) async {
+    return await client.post('/changePasswordEmail', {
+      'password': password,
+      'devid': devid,
+      'authkey': token,
+    });
+  }
+
+  Future<Response> uploadImage(File file, String devid, int token) async {
+    return await client.postImage('/uploadProfilePic', {
       'authkey': token,
       'devid': devid,
+      'cont': file,
     });
   }
 

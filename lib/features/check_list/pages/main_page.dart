@@ -5,7 +5,7 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavBar(),
+      // drawer: NavBar(),
       appBar: AppBar(
         flexibleSpace: Image(
           image: AssetImage('assets/images/background.jpg'),
