@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:human_resources/models/q.dart';
 import 'package:human_resources/models/question_item.dart';
 import 'package:human_resources/network/local.dart';
 import 'package:path_provider/path_provider.dart';
@@ -10,6 +11,7 @@ class QuestionRepository {
   Map<String, dynamic> answers = {};
   int pageNum = 1;
   int numberOfPages = 0;
+  late int checklistID;
 
   Future<List<QuestionItem>> getItemData(int pageNum) async {
     // answers = {};
@@ -41,21 +43,67 @@ class QuestionRepository {
     return items;
   }
 
+  Future<List<QuestionItem>> getItemDataQ(int pageNum, int checklistNum) async {
+    // answers = {};
+    final path = await _localPath;
+    this.checklistID = checklistNum;
+    try {
+      final fileExist =
+          await File("$path/tempAnswers$checklistID$pageNum.json").exists();
+      if (fileExist) {
+        // print('file$pageNum did exist');
+        final file = File("$path/tempAnswers$checklistID$pageNum.json");
+        String a = await file.readAsString();
+        // print('a : $a');
+        if (a != "") {
+          // print("file had data");
+          answers = jsonDecode(a);
+        }
+        // print("answers : $answers");
+      }
+    } catch (e) {
+      print(e);
+    }
+
+    var res = await LocalApiHelper().parseJson("q");
+    // print(res);
+    List data = res['data'] as List;
+    List<Q> q = data.map((e) => Q.fromJson(e)).toList();
+    items = [];
+    for (Q d in q) {
+      if (d.checklistID == checklistNum) {
+        List<QuestionItem> tempQuestions = d.pages;
+        numberOfPages = tempQuestions.length;
+        for (QuestionItem q in tempQuestions) {
+          if (q.name == "page$pageNum") {
+            print(q.name);
+            items.add(q);
+          }
+        }
+      }
+    }
+    // List temp = res['pages'] as List;
+    // List<QuestionItem> tempQuestions =
+    //     temp.map((e) => QuestionItem.fromJson(e)).toList();
+    return items;
+  }
+
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
     return directory.path;
   }
 
   Future<void> addItemData(Map<String, dynamic> answer) async {
+    answer['checklistID'] = this.checklistID;
     final path = await _localPath;
     final file = File("$path/answers.json");
     file.writeAsStringSync(json.encode(answer));
-    // print(file.readAsStringSync());
+    print(file.readAsStringSync());
   }
 
   Future<void> addTempData(Map<String, dynamic> answers, int pageNum) async {
     final path = await _localPath;
-    final file = File("$path/tempAnswers$pageNum.json");
+    final file = File("$path/tempAnswers$checklistID$pageNum.json");
     await file.writeAsString(json.encode(answers));
     // print("temp file saved : ${file.readAsStringSync()}");
   }
@@ -71,10 +119,11 @@ class QuestionRepository {
       // }
       pageNum = 1;
       while (true) {
-        final fileExist = await File("$path/tempAnswers$pageNum.json").exists();
+        final fileExist =
+            await File("$path/tempAnswers$checklistID$pageNum.json").exists();
         if (fileExist) {
-          print('file$pageNum did exist');
-          final file = File("$path/tempAnswers$pageNum.json");
+          print('file tempAnswers$checklistID$pageNum did exist');
+          final file = File("$path/tempAnswers$checklistID$pageNum.json");
           await file.writeAsString("");
           pageNum++;
         } else {

@@ -5,7 +5,8 @@ abstract class QuestionEvent {}
 
 class GetQuestionsData extends QuestionEvent {
   final int pageNum;
-  GetQuestionsData({required this.pageNum});
+  final int checklistNum;
+  GetQuestionsData({required this.pageNum, required this.checklistNum});
 }
 
 class AddAnswerData extends QuestionEvent {

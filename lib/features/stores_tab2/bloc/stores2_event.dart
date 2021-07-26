@@ -6,6 +6,6 @@ abstract class Stores2Event {}
 class GetChecklistData extends Stores2Event {}
 
 class AddData extends Stores2Event {
-  List<CheckItem> items;
-  AddData({required this.items});
+  CheckItem item;
+  AddData({required this.item});
 }

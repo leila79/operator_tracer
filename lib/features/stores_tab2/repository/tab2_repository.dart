@@ -25,16 +25,16 @@ class Tab2Repository {
     return items;
   }
 
-  Future<void> addItemData(List<CheckItem> items) async {
+  Future<void> addItemData(CheckItem item) async {
     var res = await LocalApiHelper().parseJson("items");
     List temp = res['data'] as List;
     List<CheckItem> tempStore = temp.map((e) => CheckItem.fromJson(e)).toList();
     int id = tempStore[tempStore.length - 1].id;
-    for (CheckItem c in items) {
-      id++;
-      c.id = id;
-      temp.add(c.toJson());
-    }
+    // for (CheckItem c in items) {
+    id++;
+    item.id = id;
+    temp.add(item.toJson());
+    // }
     res['data'] = temp;
     final path = await _localPath;
     print(path);

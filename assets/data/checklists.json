@@ -1,68 +1,52 @@
 {
-  "data" : [
+  "data": [
     {
-      "id" : 1,
-      "storeId" : 1,
-      "items" : [
+      "id": 1,
+      "storeId": 1,
+      "items": [
         {
-          "id" : 1,
-          "title" : "leila5",
-          "description" : "this is leila5",
-          "date" : "25-09-2021",
-          "time" : "14:51",
-          "status" : "not done"
+          "id": 1,
+          "title": "leila5",
+          "description": "this is leila5",
+          "date": "25-09-2021",
+          "time": "14:51",
+          "status": "not done"
         },
         {
-          "id" : 2,
-          "title" : "demo",
-          "description" : "this is demo",
-          "date" : "2021-09-25",
-          "time" : "14:03",
-          "status" : "not done"
+          "id": 2,
+          "title": "demo",
+          "description": "this is demo",
+          "date": "2021-09-25",
+          "time": "14:03",
+          "status": "not done"
         }
       ]
     },
     {
-      "id" : 2,
-      "storeId" : 2,
-      "items" : [
+      "id": 2,
+      "storeId": 2,
+      "items": [
         {
-          "id" : 1,
-          "title" : "leila2",
-          "description" : "this is leila",
-          "date" : "2021-09-25",
-          "time" : "14:51",
-          "status" : "not done"
-        },
-        {
-          "id" : 2,
-          "title" : "demo2",
-          "description" : "this is demo",
-          "date" : "2021-09-25",
-          "time" : "14:03",
-          "status" : "not done"
+          "id": 3,
+          "title": "leila2",
+          "description": "this is leila",
+          "date": "2021-09-25",
+          "time": "14:51",
+          "status": "not done"
         }
       ]
     },
     {
-      "id" : 3,
-      "storeId" : 3,
-      "items" : [
+      "id": 3,
+      "storeId": 3,
+      "items": [
         {
-          "id" : 1,
-          "title" : "leila3",
-          "description" : "this is leila",
-          "date" : "2021-09-25",
-          "time" : "14:51",
-          "status" : "not done"
-        },
-        {
-          "id" : 2,
-          "title" : "demo3",
-          "description" : "this is demo",
-          "date" : "2021-09-25",
-          "time" : "14:03",
-          "status" : "not done"
+          "id": 4,
+          "title": "leila3",
+          "description": "this is leila",
+          "date": "2021-09-25",
+          "time": "14:51",
+          "status": "not done"
         }
       ]
     }

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:human_resources/base/bloc/master_state.dart';
 import 'package:human_resources/base/daynamicApp.dart';
 import 'package:human_resources/features/check_list/bloc/check_list_bloc.dart';
+import 'package:human_resources/features/check_list/widgets/filterDialog.dart';
 import 'package:human_resources/features/check_list/widgets/item_builder.dart';
 import 'package:human_resources/features/user_profile/Bloc/bloc/user_bloc.dart';
 import 'package:human_resources/models/check_item.dart';
@@ -29,32 +30,6 @@ class _CheckListPageState extends State<CheckListPage> {
   bool filter = false;
   String catButton = "filter";
   String? day = "All";
-  List<DropdownMenuItem<String>> items = [
-    DropdownMenuItem<String>(
-      child: Text("All"),
-      value: "All",
-    ),
-    DropdownMenuItem<String>(
-      child: Text("24 Hours"),
-      value: "24 Hours",
-    ),
-    DropdownMenuItem<String>(
-      child: Text("48 Hours"),
-      value: "48 Hours",
-    ),
-    DropdownMenuItem<String>(
-      child: Text("1 Week"),
-      value: "1 Week",
-    ),
-    DropdownMenuItem<String>(
-      child: Text("1 Month"),
-      value: "1 Month",
-    ),
-    DropdownMenuItem<String>(
-      child: Text("3 Month"),
-      value: "3 Month",
-    ),
-  ];
   CheckListBloc _bloc = CheckListBloc();
 
   @override
@@ -215,60 +190,26 @@ class _CheckListPageState extends State<CheckListPage> {
           ),
           onTap: () {
             showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    content: Container(
-                      child: Stack(
-                        overflow: Overflow.visible,
-                        children: <Widget>[
-                          Positioned(
-                            right: -40.0,
-                            top: -40.0,
-                            child: InkResponse(
-                              onTap: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: CircleAvatar(
-                                child: Icon(Icons.open_in_browser),
-                                backgroundColor: Colors.red,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: 100.0,
-                            child: Column(
-                              children: [
-                                Text("choose the number of days you want"),
-                                SizedBox(
-                                  height: 10.0,
-                                  width: 10.0,
-                                ),
-                                DropdownButton<String>(
-                                  value: day,
-                                  items: this.items,
-                                  onChanged: (value1) {
-                                    day = value1;
-                                    setState(() {
-                                      if (value1 != "All") {
-                                        filter = true;
-                                        catButton = "$value1";
-                                      } else {
-                                        filter = false;
-                                        catButton = "All";
-                                      }
-                                      Navigator.of(context).pop();
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                });
+              context: context,
+              builder: (BuildContext context) {
+                return Filter(
+                  day: day,
+                  onChange: (value1) {
+                    day = value1;
+                    setState(() {
+                      if (value1 != "All") {
+                        filter = true;
+                        catButton = "$value1";
+                      } else {
+                        filter = false;
+                        catButton = "All";
+                      }
+                      Navigator.of(context).pop();
+                    });
+                  },
+                );
+              },
+            );
           },
         )
       ],

@@ -19,7 +19,7 @@ void main() async {
   Directory directory = await getApplicationDocumentsDirectory();
   Hive.init(directory.path);
   Hive.registerAdapter(ItemAdapter());
-
+  // Hive.openBox<Item>('items');
   runApp(App());
 }
 
@@ -28,7 +28,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print('object');
+        // print('object');
         // FocusScopeNode currentFocus = FocusScope.of(context);
 
         // if (!currentFocus.hasPrimaryFocus) {

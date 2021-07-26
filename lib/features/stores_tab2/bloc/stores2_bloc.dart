@@ -39,7 +39,7 @@ class Stores2Bloc extends Bloc<Stores2Event, MasterState> {
     }
     if (event is AddData) {
       try {
-        await tab2repository.addItemData(event.items);
+        await tab2repository.addItemData(event.item);
       } catch (e) {
         if (e is ConnectionException) {
           yield ConnectionError();

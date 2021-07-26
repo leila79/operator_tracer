@@ -105,7 +105,9 @@ class _FormPageState extends State<FormPage> {
       pageNum++;
       thirdTab.savePage();
       thirdTab.pageNum = pageNum;
-      thirdTab.bloc.add(GetQuestionsData(pageNum: pageNum));
+      thirdTab.checklistNum = secondTab.selected;
+      thirdTab.bloc.add(
+          GetQuestionsData(pageNum: pageNum, checklistNum: secondTab.selected));
       return thirdTab;
     }
     if (tab == 4) {
@@ -113,7 +115,8 @@ class _FormPageState extends State<FormPage> {
       thirdTab.save();
       pageNum++;
       thirdTab.pageNum = pageNum;
-      thirdTab.bloc.add(GetQuestionsData(pageNum: pageNum));
+      thirdTab.bloc.add(
+          GetQuestionsData(pageNum: pageNum, checklistNum: secondTab.selected));
       if (!thirdTab.bloc.done) {
         tabNum = 3;
         return thirdTab;
