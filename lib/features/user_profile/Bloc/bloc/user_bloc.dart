@@ -23,7 +23,7 @@ class UserBloc extends Bloc<UserEvent, MasterState> {
     if (event is GetUserInfo) {
       yield ShowLoading();
       try {
-        bool error = await _repository.getUserInfo();
+        bool error = await _repository.getUserInfoFromDB();
         print(error);
         if (error == false) {
           yield NOData();

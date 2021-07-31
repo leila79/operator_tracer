@@ -1,6 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:hive/hive.dart';
+import 'package:human_resources/database/models/answers_db.dart';
+import 'package:human_resources/database/models/question_db.dart';
+import 'package:human_resources/database/models/question_item_db.dart';
 import 'package:human_resources/models/q.dart';
 import 'package:human_resources/models/question_item.dart';
 import 'package:human_resources/network/local.dart';
@@ -66,7 +70,7 @@ class QuestionRepository {
     }
 
     var res = await LocalApiHelper().parseJson("q");
-    // print(res);
+    final Box<QuestionDB> questionBox = Hive.box('questions');
     List data = res['data'] as List;
     List<Q> q = data.map((e) => Q.fromJson(e)).toList();
     items = [];
@@ -82,6 +86,40 @@ class QuestionRepository {
         }
       }
     }
+    List<QuestionItemDB> tempItems = [];
+    bool inHive = false;
+    for (Q questions in q) {
+      inHive = false;
+      if (questionBox.isEmpty) {
+        tempItems = [];
+        for (QuestionItem questionItem in questions.pages) {
+          tempItems.add(
+            QuestionItemDB(questionItem.name, questionItem.elements),
+          );
+        }
+        QuestionDB item =
+            QuestionDB(questions.id, questions.checklistID, tempItems);
+        questionBox.add(item);
+      } else {
+        for (QuestionDB i in questionBox.values) {
+          if (questions.id == i.id) {
+            inHive = true;
+            break;
+          }
+        }
+        if (inHive == false) {
+          tempItems = [];
+          for (QuestionItem questionItem in questions.pages) {
+            tempItems.add(
+              QuestionItemDB(questionItem.name, questionItem.elements),
+            );
+          }
+          QuestionDB item =
+              QuestionDB(questions.id, questions.checklistID, tempItems);
+          questionBox.add(item);
+        }
+      }
+    }
     // List temp = res['pages'] as List;
     // List<QuestionItem> tempQuestions =
     //     temp.map((e) => QuestionItem.fromJson(e)).toList();
@@ -94,6 +132,10 @@ class QuestionRepository {
   }
 
   Future<void> addItemData(Map<String, dynamic> answer) async {
+    final Box<AnswersDB> answerBox = Hive.box('answers');
+    print(this.checklistID);
+    AnswersDB answers = AnswersDB(this.checklistID, answer);
+    answerBox.add(answers);
     answer['checklistID'] = this.checklistID;
     final path = await _localPath;
     final file = File("$path/answers.json");

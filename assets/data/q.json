@@ -64,7 +64,7 @@
                     "elements": [
                         {
                             "type": "checkbox",
-                            "name": "question1",
+                            "name": "question7",
                             "choices": [
                                 "item1",
                                 "item2",
@@ -73,7 +73,7 @@
                         },
                         {
                             "type": "radiogroup",
-                            "name": "question2",
+                            "name": "question8",
                             "choices": [
                                 "item1",
                                 "item2",
@@ -82,7 +82,7 @@
                         },
                         {
                             "type": "file",
-                            "name": "question3",
+                            "name": "question9",
                             "maxSize": 1000
                         }
                     ]

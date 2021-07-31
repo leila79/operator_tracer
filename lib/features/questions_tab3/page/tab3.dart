@@ -39,7 +39,7 @@ class ThirdTab extends StatefulWidget {
   void savePage() {
     print('in save page');
     Map<String, dynamic> pageAnswers = {};
-    print(_items);
+    // print(_items);
     for (QuestionBuilder q in _items) {
       q.value();
       if (q.element['type'] == 'checkbox') {

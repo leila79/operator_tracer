@@ -36,10 +36,21 @@ class Stores2Bloc extends Bloc<Stores2Event, MasterState> {
           yield OtherError();
         }
       }
-    }
-    if (event is AddData) {
+    } else if (event is AddData) {
       try {
         await tab2repository.addItemData(event.item);
+      } catch (e) {
+        if (e is ConnectionException) {
+          yield ConnectionError();
+        } else if (e is TokenException) {
+          yield TokenError();
+        } else if (e is PublicException) {
+          yield OtherError();
+        }
+      }
+    } else if (event is DeleteData) {
+      try {
+        await tab2repository.deleteFiles();
       } catch (e) {
         if (e is ConnectionException) {
           yield ConnectionError();

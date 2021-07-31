@@ -127,14 +127,26 @@ class Client {
         "cont":
             await MultipartFile.fromFile(data['cont'].path, filename: fileName),
       });
-      var dio = Dio();
-      response = await _dio.post("$url", data: formData);
+      var dio = Dio(
+        BaseOptions(
+          baseUrl: _baseurl,
+          connectTimeout: 5 * 1000, // 5 seconds
+          receiveTimeout: 3 * 1000,
+        ),
+      );
+      response = await dio.post("$url", data: formData);
       return response;
     } on DioError catch (e) {
-      // Handle error
-      print(e);
+      // throw SocketException(e.toString());
+      if (e.type == DioErrorType.connectTimeout) {
+        throw Exception("Connection  Timeout Exception");
+      }
+      if (e.type == DioErrorType.other) {
+        throw Exception("Connection Exception");
+      }
+      throw Exception(e.message);
     }
-    return response;
+    // return response;
   }
 
   Future<Response> delete(String url, dynamic data) async {

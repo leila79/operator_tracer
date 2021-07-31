@@ -9,3 +9,5 @@ class AddData extends Stores2Event {
   CheckItem item;
   AddData({required this.item});
 }
+
+class DeleteData extends Stores2Event {}

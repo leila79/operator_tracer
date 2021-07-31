@@ -23,13 +23,17 @@ class SecondTab extends StatefulWidget {
     // selected = '';
     for (StoreCheckListItem i in items) {
       if (i.value == selected) {
-        print(i.checkItem.title);
+        // print(i.checkItem.title);
         selected = i.value;
         select = i.checkItem;
         _bloc.add(AddData(item: select));
         // selected.add(i.checkItem.title);
       }
     }
+  }
+
+  void delete() {
+    _bloc.add(DeleteData());
   }
 }
 

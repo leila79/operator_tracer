@@ -34,7 +34,7 @@ class _CheckListPageState extends State<CheckListPage> {
 
   @override
   void initState() {
-    _bloc.add(GetItemData());
+    // _bloc.add(GetItemData());
     super.initState();
     // getUserInfo();
     _filter.addListener(() {
@@ -98,8 +98,8 @@ class _CheckListPageState extends State<CheckListPage> {
   @override
   Widget build(BuildContext context) {
     // User user = ModalRoute.of(context)!.settings.arguments as User;
+    // _bloc.add(GetItemData());
     _bloc.add(GetItemData());
-
     return DynamicApp(
       // user: user,
       appBar: AppBar(
@@ -129,9 +129,10 @@ class _CheckListPageState extends State<CheckListPage> {
           bloc: _bloc,
           builder: (context, state) {
             if (state is NOData) {
-              return Text('NoData');
+              List<CheckItem> items = [];
+              return itemBuilder(items);
             } else if (state is ShowLoading) {
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             } else if (state is ShowItems) {
               return itemBuilder(state.items);
             } else if (state is ShowSearchedItems) {
@@ -145,7 +146,9 @@ class _CheckListPageState extends State<CheckListPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/form_page');
+          Navigator.pushNamed(context, '/form_page').then((value) {
+            setState(() {});
+          });
         },
         child: Icon(Icons.add),
       ),
