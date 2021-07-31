@@ -32,9 +32,9 @@ dependencies:
   dio: ^4.0.0
   flutter_svg: ^0.22.0
   shared_preferences: ^2.0.6
-  loading_overlay: ^0.3.0
-  # flutter_absolute_path: ^1.0.6
-  network_to_file_image: ^3.0.0
+  loading_overlay:
+  flutter_absolute_path: ^1.0.6
+  network_to_file_image:
   device_info_plus: 
   multi_image_picker2:
 

@@ -122,6 +122,7 @@ class _FileQAState extends State<FileQA> {
     for (int i = 0; i < resultList.length; i++) {
       var filepath =
           await FlutterAbsolutePath.getAbsolutePath(resultList[i].identifier);
+      print(filepath);
       imageFiles.add(File(filepath));
     }
 
