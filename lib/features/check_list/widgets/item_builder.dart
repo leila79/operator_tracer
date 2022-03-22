@@ -3,7 +3,7 @@ import 'package:human_resources/features/check_list/widgets/check_list_item.dart
 import 'package:human_resources/models/check_item.dart';
 
 class ItemBuilder extends StatelessWidget {
-  CheckItem item;
+  final CheckItem item;
   ItemBuilder({required this.item});
 
   @override

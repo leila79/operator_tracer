@@ -3,7 +3,6 @@ import 'package:hive/hive.dart';
 import 'package:human_resources/database/items_db.dart';
 import 'package:human_resources/models/check_item.dart';
 import 'package:human_resources/network/check_item_api.dart';
-import 'package:human_resources/network/client.dart';
 import 'package:human_resources/network/local.dart';
 
 class ItemRepository {
@@ -11,7 +10,7 @@ class ItemRepository {
   late Dio client;
 
   ItemRepository() {
-    client = Client().init();
+    // client = Client().init();
   }
 
   Future<List<CheckItem>> getItemData() async {
@@ -21,13 +20,13 @@ class ItemRepository {
         temp.map((e) => CheckItem.fromJson(e)).toList();
     items = [];
     items.addAll(tempProduct);
-    Item item = Item(
-        tempProduct[0].id,
-        tempProduct[0].title,
-        tempProduct[0].description,
-        tempProduct[0].date,
-        tempProduct[0].time,
-        tempProduct[0].status);
+    // Item item = Item(
+    //     tempProduct[0].id,
+    //     tempProduct[0].title,
+    //     tempProduct[0].description,
+    //     tempProduct[0].date,
+    //     tempProduct[0].time,
+    //     tempProduct[0].status);
     // var box = await Hive.openBox<Item>('item');
     // box.add(item);
     // final value = box.values.toList();

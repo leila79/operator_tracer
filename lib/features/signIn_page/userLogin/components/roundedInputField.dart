@@ -6,14 +6,20 @@ class RoundedInputField extends StatelessWidget {
   late final IconData icon;
   late final String text;
   late final ValueChanged<String> onChange;
+  late final bool haveText;
 
   RoundedInputField(
-      {this.icon = Icons.person, required this.text, required this.onChange});
+      {this.icon = Icons.person,
+      required this.text,
+      required this.onChange,
+      required this.haveText});
 
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
+      haveText: haveText,
       child: TextField(
+        keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
             icon: Icon(
               Icons.person,

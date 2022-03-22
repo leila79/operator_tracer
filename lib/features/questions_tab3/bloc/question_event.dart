@@ -4,22 +4,22 @@ part of 'question_bloc.dart';
 abstract class QuestionEvent {}
 
 class GetQuestionsData extends QuestionEvent {
-  int pageNum;
+  final int pageNum;
   GetQuestionsData({required this.pageNum});
 }
 
 class AddAnswerData extends QuestionEvent {
-  Map<String, dynamic> answer;
+  final Map<String, dynamic> answer;
   AddAnswerData({required this.answer});
 }
 
 class AddPageData extends QuestionEvent {
-  Map<String, dynamic> answer;
-  int pageNum;
+  final Map<String, dynamic> answer;
+  final int pageNum;
   AddPageData({required this.answer, required this.pageNum});
 }
 
 class DeleteFile extends QuestionEvent {
-  int pageNum;
+  final int pageNum;
   DeleteFile({required this.pageNum});
 }
