@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 import 'package:human_resources/base/bloc/base_bloc.dart';
 import 'package:human_resources/base/bloc/master_state.dart';
+import 'package:human_resources/database/models/user_db.dart';
 import 'package:human_resources/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -129,6 +131,8 @@ class _NavBarState extends State<NavBar> {
             onTap: () async {
               var loginData = await SharedPreferences.getInstance();
               loginData.setBool('login', true);
+              final Box<UserDB> userBox = Hive.box('user');
+              userBox.deleteAt(0);
               Navigator.pushReplacementNamed(context, '/welcomePage');
             },
           ),

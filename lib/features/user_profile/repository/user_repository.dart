@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:hive/hive.dart';
+import 'package:human_resources/database/models/user_db.dart';
 import 'package:human_resources/models/user.dart';
 import 'package:human_resources/models/user_auth.dart';
 import 'package:human_resources/network/user_api_provider.dart';
@@ -20,7 +22,6 @@ class UserRepository {
     this.token = loginData.getInt('token')!;
     await initPlatformState();
     UserApi userApi = UserApi();
-    // TODO:error massage
     try {
       Response userres = await userApi.fetchUserInfo(this.token, devid);
       Map<String, dynamic> userress = json.decode(userres.data);
@@ -32,6 +33,38 @@ class UserRepository {
       // print(user.email);
       // print(user.name);
       return userress['status'];
+    } on Exception catch (e) {
+      print(e);
+      error = e.toString();
+      print(error);
+    }
+    return false;
+  }
+
+  Future<bool> getUserInfoFromDB() async {
+    var loginData = await SharedPreferences.getInstance();
+    this.token = loginData.getInt('token')!;
+    await initPlatformState();
+    try {
+      final Box<UserDB> userBox = Hive.box('user');
+      UserDB userDB = userBox.getAt(0)!;
+      user = User(
+        userDB.status,
+        userDB.id,
+        userDB.email,
+        userDB.name,
+        userDB.img,
+      );
+      // Response userres = await userApi.fetchUserInfo(this.token, devid);
+      // Map<String, dynamic> userress = json.decode(userres.data);
+      // if (userress['status'] == "false") {
+      //   // return jsons['result']['error_msg_en'];
+      //   return userress['status'];
+      // }
+      // user = User.fromJson(userress["result"]);
+      // print(user.email);
+      // print(user.name);
+      return true;
     } on Exception catch (e) {
       print(e);
       error = e.toString();
@@ -80,7 +113,6 @@ class UserRepository {
     this.token = loginData.getInt('token')!;
     await initPlatformState();
     UserApi userApi = UserApi();
-    // TODO:fix function inputs
     Response response = await userApi.uploadImage(file, devid, token);
     String resBody = response.data;
     Map<String, dynamic> jsonFormat = json.decode(resBody);
@@ -90,15 +122,40 @@ class UserRepository {
       print(jsonFormat['result']['error_msg_en']);
       return changed;
     }
-    Response userres = await userApi.fetchUserInfo(this.token, devid);
+    // Response userres = await userApi.fetchUserInfo(this.token, devid);
+    // Map<String, dynamic> userress = json.decode(userres.data);
+    // if (userress['status'] == "false") {
+    //   // return jsons['result']['error_msg_en'];
+    //   return userress['status'];
+    // }
+    // user = User.fromJson(userress["result"]);
+    await getUserImage();
+    return changed;
+  }
+
+  Future<bool> getUserImage() async {
+    var loginData = await SharedPreferences.getInstance();
+    this.token = loginData.getInt('token')!;
+    await initPlatformState();
+    UserApi userApi = UserApi();
+    Response userres = await userApi.getUserImage(this.token, devid);
     Map<String, dynamic> userress = json.decode(userres.data);
     if (userress['status'] == "false") {
       // return jsons['result']['error_msg_en'];
       return userress['status'];
     }
-    user = User.fromJson(userress["result"]);
-    loginData.setString('img', user.img);
-    return changed;
+    String image = userress["result"];
+    loginData.setString('img', image);
+    final Box<UserDB> userBox = Hive.box('user');
+    UserDB userDB = userBox.getAt(0)!;
+    UserDB userDBNew = UserDB(
+        status: userDB.status,
+        id: userDB.id,
+        email: userDB.email,
+        name: userDB.name,
+        img: image);
+    await userBox.putAt(0, userDBNew);
+    return true;
   }
 
   Future<Map<String, dynamic>> initPlatformState() async {

@@ -54,6 +54,7 @@ class CheckListBloc extends Bloc<CheckListEvent, MasterState> {
         } else if (e is PublicException) {
           yield OtherError();
         }
+        print(e);
       }
     }
   }

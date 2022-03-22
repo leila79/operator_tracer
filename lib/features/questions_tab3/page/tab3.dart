@@ -12,6 +12,7 @@ class ThirdTab extends StatefulWidget {
   List<QuestionBuilder> _items = [];
   final Map<String, dynamic> answer = {};
   int pageNum = 1;
+  int checklistNum = 1;
   @override
   _ThirdTabState createState() => _ThirdTabState();
 
@@ -38,7 +39,7 @@ class ThirdTab extends StatefulWidget {
   void savePage() {
     print('in save page');
     Map<String, dynamic> pageAnswers = {};
-    print(_items);
+    // print(_items);
     for (QuestionBuilder q in _items) {
       q.value();
       if (q.element['type'] == 'checkbox') {
@@ -65,7 +66,8 @@ class ThirdTab extends StatefulWidget {
 
 class _ThirdTabState extends State<ThirdTab> {
   void initState() {
-    widget.bloc.add(GetQuestionsData(pageNum: widget.pageNum));
+    widget.bloc.add(GetQuestionsData(
+        pageNum: widget.pageNum, checklistNum: widget.checklistNum));
     super.initState();
   }
 

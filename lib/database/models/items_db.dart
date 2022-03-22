@@ -2,9 +2,9 @@ import 'package:hive/hive.dart';
 
 part 'items_db.g.dart';
 
-@HiveType(typeId: 0)
-class Item {
-  Item(
+@HiveType(typeId: 1)
+class ItemDB {
+  ItemDB(
       this.id, this.title, this.description, this.date, this.time, this.status);
 
   @HiveField(0)

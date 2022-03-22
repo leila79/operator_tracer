@@ -3,8 +3,17 @@ import 'package:human_resources/models/check_item.dart';
 
 class StoreCheckListItem extends StatefulWidget {
   CheckItem checkItem;
-  bool checked;
-  StoreCheckListItem({required this.checkItem, required this.checked});
+  // bool checked;
+  int value;
+  int selected;
+  VoidCallback onChange;
+  StoreCheckListItem({
+    required this.checkItem,
+    // required this.checked,
+    required this.value,
+    required this.selected,
+    required this.onChange,
+  });
 
   @override
   _StoreCheckListItemState createState() => _StoreCheckListItemState();
@@ -14,14 +23,7 @@ class _StoreCheckListItemState extends State<StoreCheckListItem> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          if (widget.checked) {
-            widget.checked = false;
-          } else
-            widget.checked = true;
-        });
-      },
+      onTap: widget.onChange,
       child: Container(
         padding: EdgeInsets.all(10.0),
         decoration: BoxDecoration(
@@ -40,9 +42,9 @@ class _StoreCheckListItemState extends State<StoreCheckListItem> {
           mainAxisAlignment: MainAxisAlignment.start,
           // crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Icon(widget.checked
-                ? Icons.check_box
-                : Icons.check_box_outline_blank),
+            Icon(widget.value == widget.selected
+                ? Icons.radio_button_checked
+                : Icons.radio_button_off),
             SizedBox(
               width: 10.0,
             ),

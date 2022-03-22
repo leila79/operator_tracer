@@ -1,0 +1,250 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "checklistID": 1,
+            "pages": [
+                {
+                    "name": "page1",
+                    "elements": [
+                        {
+                            "type": "checkbox",
+                            "name": "question1",
+                            "choices": [
+                                "item1",
+                                "item2",
+                                "item3"
+                            ]
+                        },
+                        {
+                            "type": "radiogroup",
+                            "name": "question2",
+                            "choices": [
+                                "item1",
+                                "item2",
+                                "item3"
+                            ]
+                        },
+                        {
+                            "type": "file",
+                            "name": "question3",
+                            "maxSize": 1000
+                        }
+                    ]
+                },
+                {
+                    "name": "page2",
+                    "elements": [
+                        {
+                            "type": "text",
+                            "name": "question4"
+                        },
+                        {
+                            "type": "radiogroup",
+                            "name": "question5",
+                            "choices": [
+                                "item1",
+                                "item2",
+                                "item3"
+                            ]
+                        },
+                        {
+                            "type": "checkbox",
+                            "name": "question6",
+                            "choices": [
+                                "item1",
+                                "item5",
+                                "item3"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "page3",
+                    "elements": [
+                        {
+                            "type": "checkbox",
+                            "name": "question7",
+                            "choices": [
+                                "item1",
+                                "item2",
+                                "item3"
+                            ]
+                        },
+                        {
+                            "type": "radiogroup",
+                            "name": "question8",
+                            "choices": [
+                                "item1",
+                                "item2",
+                                "item3"
+                            ]
+                        },
+                        {
+                            "type": "file",
+                            "name": "question9",
+                            "maxSize": 1000
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "checklistID": 2,
+            "pages": [
+                {
+                    "name": "page1",
+                    "elements": [
+                        {
+                            "type": "checkbox",
+                            "name": "question12",
+                            "choices": [
+                                "item1",
+                                "item2",
+                                "item3"
+                            ]
+                        },
+                        {
+                            "type": "radiogroup",
+                            "name": "question22",
+                            "choices": [
+                                "item1",
+                                "item2",
+                                "item3"
+                            ]
+                        },
+                        {
+                            "type": "file",
+                            "name": "question32",
+                            "maxSize": 1000
+                        }
+                    ]
+                },
+                {
+                    "name": "page2",
+                    "elements": [
+                        {
+                            "type": "text",
+                            "name": "question42"
+                        },
+                        {
+                            "type": "radiogroup",
+                            "name": "question52",
+                            "choices": [
+                                "item1",
+                                "item2",
+                                "item3"
+                            ]
+                        },
+                        {
+                            "type": "checkbox",
+                            "name": "question62",
+                            "choices": [
+                                "item1",
+                                "item5",
+                                "item3"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "checklistID": 3,
+            "pages": [
+                {
+                    "name": "page1",
+                    "elements": [
+                        {
+                            "type": "checkbox",
+                            "name": "question13",
+                            "choices": [
+                                "item1",
+                                "item2",
+                                "item3"
+                            ]
+                        },
+                        {
+                            "type": "radiogroup",
+                            "name": "question23",
+                            "choices": [
+                                "item1",
+                                "item2",
+                                "item3"
+                            ]
+                        },
+                        {
+                            "type": "file",
+                            "name": "question33",
+                            "maxSize": 1000
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "checklistID": 4,
+            "pages": [
+                {
+                    "name": "page1",
+                    "elements": [
+                        {
+                            "type": "checkbox",
+                            "name": "question14",
+                            "choices": [
+                                "item1",
+                                "item2",
+                                "item3"
+                            ]
+                        },
+                        {
+                            "type": "radiogroup",
+                            "name": "question24",
+                            "choices": [
+                                "item1",
+                                "item2",
+                                "item3"
+                            ]
+                        },
+                        {
+                            "type": "file",
+                            "name": "question34",
+                            "maxSize": 1000
+                        }
+                    ]
+                },
+                {
+                    "name": "page2",
+                    "elements": [
+                        {
+                            "type": "checkbox",
+                            "name": "question44",
+                            "choices": [
+                                "item1",
+                                "item2",
+                                "item3"
+                            ]
+                        },
+                        {
+                            "type": "radiogroup",
+                            "name": "question54",
+                            "choices": [
+                                "item1",
+                                "item2",
+                                "item3"
+                            ]
+                        },
+                        {
+                            "type": "file",
+                            "name": "question64",
+                            "maxSize": 1000
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

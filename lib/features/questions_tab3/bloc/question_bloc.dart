@@ -23,7 +23,9 @@ class QuestionBloc extends Bloc<QuestionEvent, MasterState> {
     if (event is GetQuestionsData) {
       yield ShowLoading();
       try {
-        await questionRepository.getItemData(event.pageNum);
+        // await questionRepository.getItemData(event.pageNum);
+        await questionRepository.getItemDataQ(
+            event.pageNum, event.checklistNum);
         if (questionRepository.numberOfPages != event.pageNum) {
           done = false;
         } else {

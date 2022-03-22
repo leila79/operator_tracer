@@ -11,7 +11,7 @@ import 'package:human_resources/models/check_item.dart';
 class SecondTab extends StatefulWidget {
   int selected_store_id;
   Stores2Bloc _bloc = Stores2Bloc();
-  List<String> selected = [];
+  int selected = 1;
   List<StoreCheckListItem> items = [];
   SecondTab(this.selected_store_id);
 
@@ -19,16 +19,21 @@ class SecondTab extends StatefulWidget {
   _SecondTabState createState() => _SecondTabState();
 
   void save() {
-    List<CheckItem> select = [];
-    selected = [];
+    late CheckItem select;
+    // selected = '';
     for (StoreCheckListItem i in items) {
-      if (i.checked) {
-        print(i.checkItem.title);
-        select.add(i.checkItem);
-        selected.add(i.checkItem.title);
+      if (i.value == selected) {
+        // print(i.checkItem.title);
+        selected = i.value;
+        select = i.checkItem;
+        _bloc.add(AddData(item: select));
+        // selected.add(i.checkItem.title);
       }
     }
-    _bloc.add(AddData(items: select));
+  }
+
+  void delete() {
+    _bloc.add(DeleteData());
   }
 }
 
@@ -67,17 +72,26 @@ class _SecondTabState extends State<SecondTab> {
     for (CheckList item in checklist) {
       if (item.storeId == widget.selected_store_id) {
         for (CheckItem i in item.items) {
-          if (widget.selected.contains(i.title)) {
-            temp = StoreCheckListItem(
+          // if (widget.selected.contains(i.title)) {
+          //   temp = StoreCheckListItem(
+          //     checkItem: i,
+          //     // checked: true,
+          //   );
+          // } else {
+          //   temp = StoreCheckListItem(
+          //     checkItem: i,
+          //     // checked: false,
+          //   );
+          // }
+          temp = StoreCheckListItem(
               checkItem: i,
-              checked: true,
-            );
-          } else {
-            temp = StoreCheckListItem(
-              checkItem: i,
-              checked: false,
-            );
-          }
+              value: i.id,
+              selected: widget.selected,
+              onChange: () {
+                setState(() {
+                  widget.selected = i.id;
+                });
+              });
           widget.items.add(temp);
 
           items.add(Padding(

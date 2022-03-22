@@ -59,6 +59,12 @@ class UserApi {
     });
   }
 
+  Future<Response> getUserImage(int token, String devid) async {
+    return await client.post('/getProfilePicUrl', {
+      'authkey': token,
+      'devid': devid,
+    });
+  }
   // Future<Response> add(Dio dio, Map<String, dynamic> data) {
   //   return dio.post("/data/frameworks", data: data);
   // }

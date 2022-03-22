@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:hive/hive.dart';
+import 'package:human_resources/database/models/user_db.dart';
 import 'package:human_resources/features/user_profile/repository/user_repository.dart';
 import 'package:human_resources/models/user.dart';
 import 'package:human_resources/models/user_auth.dart';
@@ -17,9 +19,9 @@ class UserAuthRepository {
   late String devmodel;
 
   Future<String> getUserInfo(String email, String password) async {
+    final Box<UserDB> userBox = Hive.box('user');
     await initPlatformState();
     UserApi userApi = UserApi();
-    // TODO:error massage
     try {
       Response res =
           await userApi.Authenticate(email, password, devid, devmodel);
@@ -38,8 +40,19 @@ class UserAuthRepository {
       }
       // print(userress["result"].runtimeType);
       user = User.fromJson(userress["result"]);
+      UserDB userDB = UserDB(
+          status: user.status,
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          img: user.img);
+      userBox.add(userDB);
       // print(user.email);
       // print(user.name);
+      for (UserDB u in userBox.values) {
+        print(u.name);
+      }
+
       var loginData = await SharedPreferences.getInstance();
       loginData.setString('email', user.email);
       loginData.setString('name', user.name);
@@ -52,7 +65,6 @@ class UserAuthRepository {
     } on Exception catch (e) {
       return 'connection error';
     }
-    return 'error';
   }
 
   Future<bool> getUserPassword(String email) async {

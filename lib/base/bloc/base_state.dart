@@ -6,8 +6,8 @@ abstract class BaseState {}
 class BaseInitial extends MasterState {}
 
 class ShowUserInfo extends MasterState {
-  final String name;
-  final String email;
-  final String avatar;
+  String name;
+  String email;
+  String avatar;
   ShowUserInfo({required this.name, required this.email, required this.avatar});
 }

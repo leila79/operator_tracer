@@ -56,6 +56,7 @@ class _FormPageState extends State<FormPage> {
       tabNum++;
       print(tabNum);
       if (tabNum > 4) {
+        thirdTab.save();
         thirdTab.deleteCache();
         Navigator.pop(context);
         tabNum = 4;
@@ -69,7 +70,7 @@ class _FormPageState extends State<FormPage> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text('Are you sure?'),
-        content: Text('Do you want to exit an App'),
+        content: Text('Do you want to exit'),
         actions: <Widget>[
           FlatButton(
             onPressed: () => Navigator.of(context).pop(false),
@@ -77,6 +78,8 @@ class _FormPageState extends State<FormPage> {
           ),
           FlatButton(
             onPressed: () {
+              thirdTab.deleteCache();
+              secondTab.delete();
               Navigator.of(context).pop(false);
               Navigator.of(context).pop(true);
             },
@@ -105,15 +108,19 @@ class _FormPageState extends State<FormPage> {
       pageNum++;
       thirdTab.savePage();
       thirdTab.pageNum = pageNum;
-      thirdTab.bloc.add(GetQuestionsData(pageNum: pageNum));
+      print('checklist id : ${secondTab.selected}');
+      thirdTab.checklistNum = secondTab.selected;
+      thirdTab.bloc.add(
+          GetQuestionsData(pageNum: pageNum, checklistNum: secondTab.selected));
       return thirdTab;
     }
     if (tab == 4) {
       thirdTab.savePage();
-      thirdTab.save();
+      // thirdTab.save();
       pageNum++;
       thirdTab.pageNum = pageNum;
-      thirdTab.bloc.add(GetQuestionsData(pageNum: pageNum));
+      thirdTab.bloc.add(
+          GetQuestionsData(pageNum: pageNum, checklistNum: secondTab.selected));
       if (!thirdTab.bloc.done) {
         tabNum = 3;
         return thirdTab;
